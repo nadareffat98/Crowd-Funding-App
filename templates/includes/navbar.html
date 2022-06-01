@@ -1,0 +1,128 @@
+<nav
+    class="navbar navbar-expand-lg navbar-dark bg-dark position-fixed top-0 w-100"
+>
+    <div class="container-md">
+        <a class="navbar-brand" href="#">CROWDFUNDING</a>
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+        >
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <form class="d-flex mt-md-3 mt-lg-0 w-50 m-auto">
+                <input
+                    class="form-control me-2 search"
+                    type="search"
+                    placeholder="Search"
+                    aria-label="Search"
+                />
+            </form>
+
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a
+                        class="nav-link active"
+                        aria-current="page"
+                        href="{% url 'home' %}"
+                        >Home</a
+                    >
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/projects">Projects</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Contact</a>
+                </li>
+                {% if user.is_authenticated %}
+                <li class="nav-item ms-lg-4 user_avatar_nav rounded-pill">
+                    <div class="dropdown">
+                        <div
+                            class="user d-flex align-items-center"
+                            href="#"
+                            id="dropdownMenuLink"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                        >
+                            <div class="user_avatar">
+                                <img
+                                    src="{{MEDIA_URL}}{{user.avatar}}"
+                                    class="avatar"
+                                    alt=""
+                                />
+                            </div>
+                            <div class="user_info ms-1">
+                                <!-- prettier-ignore -->
+                                <span style="font-size: 1.5rem ; font-family: Georgia, 'Times New Roman', Times, serif;" class=" text-secondary text-capitalize fw-bolder ">{% firstof user.first_name user.username%}</span>
+                            </div>
+                        </div>
+
+                        <ul
+                            class="dropdown-menu"
+                            aria-labelledby="dropdownMenuLink"
+                        >
+                            <li>
+                                <a
+                                    class="dropdown-item"
+                                    href="/profile/{{user.id}}"
+                                    >Profile</a
+                                >
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="/password_change"
+                                    >change Password</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    class="dropdown-item"
+                                    href="{% url 'user_projects' %}"
+                                    >My Projects</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    class="dropdown-item"
+                                    href="/projects/donations"
+                                    >My Donations</a
+                                >
+                            </li>
+                            <li class="logout text-center">
+                                <a
+                                    class="dropdown-item btn btn-danger"
+                                    href="/logout"
+                                    ><em
+                                        class="fa-solid fa-right-from-bracket text-danger fs-3"
+                                    ></em
+                                ></a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                {% else%}
+                <li class="nav-item ms-lg-3 me-lg-1 my-2 my-lg-0">
+                    <a
+                        class="nav-link btn btn-info bg-transparent text-info"
+                        href="/login"
+                        >Login</a
+                    >
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn btn-info text-light" href="/register"
+                        >SignUp</a
+                    >
+                </li>
+
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>

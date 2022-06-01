@@ -1,0 +1,76 @@
+{% extends 'layouts/base.html' %}
+<!-- prettier-ignore-->
+{% load static %}
+{% load crispy_forms_tags %}
+{% block styles %}
+<link rel="stylesheet" href="{% static 'users/css/styles.css' %}" />
+{% endblock %} {% block content %}
+<div class="profile d-flex justify-content-center mt-4">
+    <div class="card bg-glass">
+        <div class="card-body px-4 py-5 px-md-5">
+    <div class="profile_box">
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+        <div class="profile_avatar">
+            <div>
+                <label role="button" for="id_avatar" class="avatar_box">
+                    <img src="{{MEDIA_URL}}{{user.avatar}}" alt="avatar" />
+                </label>
+            </div>
+            <div class="d-none">{{form.avatar|as_crispy_field}}</div>
+        </div>
+        
+        <div class="user_data">
+
+                <div class="row">
+                    <div class="mb-3 col-6">
+                        {{form.first_name|as_crispy_field}}
+                    </div>
+                    <div class="mb-3 col-6">
+                        {{form.last_name|as_crispy_field}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="mb-3 col">{{form.email|as_crispy_field}}</div>
+                </div>
+                <div class="row">
+                    <div class="mb-3 col">
+                        {{form.mobile_phone|as_crispy_field}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="mb-3 col">{{form.country|as_crispy_field}}</div>
+                </div>
+                <div class="row">
+                    <div class="mb-3 col">
+                        {{form.date_of_birth|as_crispy_field}}
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <a class="btn btn-outline-secondary" href="/password_change">
+                        <em class="fa-solid fa-lock"></em>
+                        Change Password
+                    </a>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="delete_account mt-4">
+            <div class="mb-2">
+                <p class="mb-2">Do you wanna delete your account?</p>
+                <a data-bs-toggle="modal"
+                data-bs-target="#deleteModal" href="delete/{{user.id}}" class="btn btn-danger">Delete Account</a>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+
+{% include 'users/user_confirm_delete.html' %}
+
+{% endblock %} {% block script %}
+<script src="{% static 'users/js/previewImage.js' %}"></script>
+{% endblock %}
